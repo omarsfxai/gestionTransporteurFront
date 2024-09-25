@@ -1,0 +1,26 @@
+.button 
+{
+color: rgb(255, 255, 255);
+margin: 20px;
+width: 181px;
+height: 60px;
+padding: 17px 17px 18px 16px;
+border-radius: 6px;
+background: #2B6983;
+border-color:#2B6983;
+
+   
+
+  }
+  .button1
+  {
+    color: #2B6983;
+    margin: 20px;
+    width: 181px;
+    height: 60px;
+    padding: 17px 17px 18px 16px;
+    border-radius: 6px;
+    background: #ffffff;
+    border-color: #2B6983;
+  }
+ 

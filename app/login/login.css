@@ -1,0 +1,96 @@
+
+ .image1 {
+    position: fixed;
+    
+    width: 100%;
+    height: 100%;
+   
+    filter: blur(4px); /* Flouter l'image */
+  }
+  
+  .loginBox {
+  position: absolute;
+  
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    width: 389px;
+    height: 474px;
+    
+    background: linear-gradient( rgba(43, 105, 131, 0.6),rgba(136, 204, 232, 0.6));
+      
+    border-radius: 28px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    padding: 20px;
+  }
+  
+  .loginBox input {
+    margin-bottom: 10px;
+    padding: 15px;
+    background-color: white;
+    width: 80%;
+    border-radius: 5px;
+    border: none;
+    outline: none;
+    margin:30px
+    
+  }
+  
+  .loginBox button {
+    padding: 10px 20px;
+    border: none;
+    border-radius: 5px;
+    background-color: #cbd9d9;
+    color: #41817ff9;
+    cursor: pointer;
+margin:30px;
+  }
+  
+  .loginBox button:hover {
+    background-color:rgb(126, 164, 164);
+  }
+  
+  .loginBox p {
+    
+    margin-top: 10px;
+    font-size: 14px;
+    color: white;
+    text-align: center;
+    font-family:system-ui, -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, 'Open Sans', 'Helvetica Neue', sans-serif;
+  }
+  .loginBox h1{
+    color:#cbd9d9;
+  }
+  .loginBox p1{
+    color:#cbd9d9;
+    font-size: 14px;
+    margin-right: -180px;
+    margin-top: -20px;
+    font-family:system-ui, -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, 'Open Sans', 'Helvetica Neue', sans-serif;
+  }
+   .insc{
+    color: azure;
+    text-decoration: underline;
+   }
+   .insc :hover{
+    color: rgb(126, 164, 164);
+    text-decoration: underline;
+   }
+   .pass{
+    color: azure;
+ text-decoration:underline ;
+ color:#cbd9d9;
+ font-size: 14px;
+ margin-right: -300px;
+ margin-top: -20px;
+ font-family:system-ui, -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, 'Open Sans', 'Helvetica Neue', sans-serif;
+
+   }
+   .pass:hover{
+    color: rgb(126, 164, 164);
+    text-decoration: underline;
+   }
+   

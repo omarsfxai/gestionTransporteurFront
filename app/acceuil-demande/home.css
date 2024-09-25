@@ -1,0 +1,117 @@
+
+.navbar {
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        background-color: #ffffff;
+        padding: 10px 20px;
+        width: 1280px; /* Setting width to 1280px */
+        height: 120px; /* Setting height to 120px */
+        box-shadow: 0 4px 4px 4px rgba(0, 0, 0, 0.1); 
+        margin: 0 auto;
+        border-radius: 20px;
+        
+    
+  }
+  
+  .navbar-brand {
+    display: flex;
+    font-size: 16px; 
+    font-weight: 600;
+    
+}
+  
+  .navbar-brand a {
+    text-decoration: none;
+    color: #333;
+    
+   margin-right: 120px;
+  }
+  
+  .navbar-buttons {
+    display: flex;
+    align-items: center;
+    
+  }
+  
+  .navbar-button {
+    padding: 8px 16px;
+    border: none;
+    border-radius: 4px;
+    cursor: pointer;
+    margin-left: 10px;
+    font-weight: bold;
+    text-transform: uppercase;
+    font-family: 'Open Sans', sans-serif;}
+  
+  .orange {
+    background-color: #D98310;
+    color: white;
+    font-family: 'Open Sans', sans-serif;
+    width: 132px; 
+    height: 52px; 
+    
+  }
+  
+  .navy {
+    background-color: #083C5D;
+    color: white;
+    font-family: 'Open Sans', sans-serif;
+    
+    
+    height: 52px; 
+
+  }
+  
+  .navbar-button span {
+    margin-left: 5px;
+  }
+  .verifContainer{
+    width: 1280px; 
+  margin: 20px auto;
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+  background-color: #88CCE8;
+    color: #2B6983;
+    border-radius: 6px;
+    font-family: 'Open Sans', sans-serif;
+    font-weight: 600;
+
+  
+  }
+  .verify-button {
+    width: 200px;
+    height: 60px;
+    padding: 10px 20px;
+    border: none;
+    border-radius: 4px;
+    background-color: #88CCE8;
+    
+    font-size: 16px;
+    font-weight: 600; font-family: 'Open Sans', sans-serif;
+    cursor: pointer;
+  }
+    .verify-button:hover {
+        background-color:#88cbe8b9;
+      }
+
+  
+  .complete-text {
+    color: #ffffff;
+   
+  }
+
+.Recherche{
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  background-color: #ffffff;
+  padding: 10px 20px;
+  width: 1280px; 
+  height: 188px; 
+  border-radius: 20px;
+  border: 1px solid #ccc;
+  margin: 0 auto;
+  border-radius: 20px;
+}

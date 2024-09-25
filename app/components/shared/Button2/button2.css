@@ -1,0 +1,21 @@
+.button2
+  {
+    color: #ffffff;
+    font-size: 16px;
+    margin: 90px;
+    width: 150px;
+    height: 50px;
+    padding: 17px 17px 18px 16px;
+    border-radius: 6px;
+    background: #ffffff;
+    border-color: #2B6983;
+  
+  }
+  .duré{
+    position: absolute ;
+    top: 0px;
+    right:5%;
+    font-size: 15px;
+    font-weight: 400;
+  }
+ 
