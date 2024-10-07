@@ -47,7 +47,7 @@ function SignupTransporteur() {
   const [error, setError] = useState(null);
 
   const onSubmit = async (data) => {
-    data.role = role;
+    data.role = "transporteur";
     try {
       const response = await axios.post(
         "http://localhost:3002/user/register",

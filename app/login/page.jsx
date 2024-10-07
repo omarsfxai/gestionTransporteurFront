@@ -23,7 +23,7 @@ function Login() {
 
   const handleLogin = async () => {
     try {
-      const response = await fetch("http://localhost:3002/user/login", {
+      const response = await fetch("http://localhost:3002/compte/login", {
         method: "POST",
         headers: {
           "Content-Type": "application/json",
@@ -40,16 +40,16 @@ function Login() {
 
       const data = await response.json();
       console.log("Login successful", data);
-      console.log("rooooleee", data.user.role);
+      console.log("rooooleee", data.role);
 
       // Stockez le token JWT dans le local storage (ou cookies) si nécessaire
-      localStorage.setItem("token", data.user.token);
+      localStorage.setItem("token", data.token);
      
 
       // Vérifiez le rôle de l'utilisateur et redirigez en conséquence
-      if (data.user.role === "expéditeur") {
+      if (data.role === "expéditeur") {
         router.push("/accueil-expediteur");
-      } else if (data.user.role === "transporteur") {
+      } else if (data.role === "transporteur") {
         router.push("/accueil-transporteur");
       } else {
         // Gérez le cas où le rôle n'est pas reconnu
