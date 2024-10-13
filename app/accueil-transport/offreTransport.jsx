@@ -1,10 +1,13 @@
 import React, { useState, useEffect } from "react";
 import Modal from "./modalOffre";
+import NewModal from "./NewModal";
 
 function OffreTransport() {
   const [isModalOpen, setIsModalOpen] = useState(false);
   const [demandesTransport, setDemandesTransport] = useState([]);
   const [selectedDemandeId, setSelectedDemandeId] = useState(null);
+  const [isNewModalOpen, setIsNewModalOpen] = useState(false); 
+
 
   const openModal = (demandeId) => {
     setSelectedDemandeId(demandeId); 
@@ -14,6 +17,13 @@ function OffreTransport() {
   const closeModal = () => {
     setIsModalOpen(false);
     setSelectedDemandeId(null);
+  };
+  const openNewModal = () => {
+    setIsNewModalOpen(true);
+  };
+
+  const closeNewModal = () => {
+    setIsNewModalOpen(false); 
   };
 
   useEffect(() => {
@@ -32,6 +42,11 @@ function OffreTransport() {
 
   return (
     <div className="pb-11 mt-10 bg-white rounded-3xl border border-gray-400 border-solid max-md:max-w-full">
+      <button 
+        onClick={openNewModal} 
+        className="mb-5 px-4 py-2 bg-green-500 text-white rounded">
+        Afficher Mes offre
+      </button>
       {demandesTransport.map((demande) => (
         <div key={demande.id} className="flex gap-5 max-md:flex-col max-md:gap-0">
           <div className="flex flex-col w-6/12 max-md:ml-0 max-md:w-full">
@@ -110,6 +125,10 @@ function OffreTransport() {
           </div>
         </div>
       ))}
+      <NewModal 
+        isOpen={isNewModalOpen} 
+        onClose={closeNewModal} 
+      /> 
     </div>
   );
 }
