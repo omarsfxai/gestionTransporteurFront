@@ -48,9 +48,9 @@ function Login() {
 
       // Vérifiez le rôle de l'utilisateur et redirigez en conséquence
       if (data.role === "expéditeur") {
-        router.push("/accueil-expediteur");
+        router.push("/acceuil-demande");
       } else if (data.role === "transporteur") {
-        router.push("/accueil-transporteur");
+        router.push("/accueil-transport");
       } else {
         // Gérez le cas où le rôle n'est pas reconnu
         setError("Rôle d'utilisateur non reconnu.");

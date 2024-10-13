@@ -1,65 +1,200 @@
-import React, { useState } from 'react';
+import React, { useState } from "react";
 import Input from '../UI/Input/input';
 
 const ModalDemande = ({ isOpen, onClose }) => {
   if (!isOpen) return null;
 
-  const [prixTotal, setPrixTotal] = useState('');
+  const [formData, setFormData] = useState({
+    paysDepart: '',
+    adresseDepart: '',
+    codePostalDepart: '',
+    paysArrive: '',
+    adresseArrive: '',
+    codeArrive: '',
+    dateDepart: '',
+    dateArrive: '',
+    gerbable: 'Non',
+    frigorifie: false,
+    dangereux: false,
+    pieceJointes: '',
+    photo: '',
+  });
+
   const [file, setFile] = useState(null);
 
-  const handleSubmit = (e) => {
+  const handleSubmit = async (e) => {
     e.preventDefault();
-    // Logique pour gérer l'envoi de l'offre
-    console.log("Prix Total:", prixTotal);
-    console.log("Fichier:", file);
 
-    // Réinitialiser les valeurs après soumission
-    setPrixTotal('');
-    setFile(null);
-    onClose(); // Fermer le modal après soumission
+    console.log(formData);
+    
+    // Prepare form data for submission
+    const formDataToSend = new FormData();
+
+    // Append all fields, even if empty
+    Object.keys(formData).forEach(key => {
+      formDataToSend.append(key, formData[key]);
+    });
+
+    if (file) {
+      formDataToSend.append('pieceJointes', file);
+    }
+
+    console.log('Submitting Form Data:', formDataToSend); // Log the data being sent
+
+    try {
+      const response = await fetch('http://localhost:3002/demandeTransport/addDemande', {
+        method: 'POST',
+        body: formDataToSend,
+      });
+
+      if (response.ok) {
+        console.log("Form Data Submitted Successfully");
+
+        // Reset form after successful submission
+        setFormData({
+          paysDepart: '',
+          adresseDepart: '',
+          codePostalDepart: '',
+          paysArrive: '',
+          adresseArrive: '',
+          codeArrive: '',
+          dateDepart: '',
+          dateArrive: '',
+          gerbable: 'Non',
+          frigorifie: false,
+          dangereux: false,
+          pieceJointes: '',
+          photo: '',
+        });
+        setFile(null);
+        onClose(); // Close modal after submission
+      } else {
+        console.error("Erreur lors de l'envoi des données");
+      }
+    } catch (error) {
+      console.error('Erreur lors de la soumission', error);
+    }
+  };
+
+  const handleInputChange = (e) => {
+    const { name, value, type, checked } = e.target;
+    setFormData({
+      ...formData,
+      [name]: type === 'checkbox' ? checked : value,
+    });
   };
 
   return (
     <div className="fixed inset-0 bg-gray-600 bg-opacity-50 flex justify-center items-center">
       <div className="bg-white p-6 rounded-lg shadow-lg w-1/3 max-md:w-[400px]">
-        <h2 className="text-2xl font-bold mb-4 font-sans max-md:text-xl">Proposer une Offre</h2>
+        <h2 className="text-2xl font-bold mb-4 font-sans max-md:text-xl">Demande de Transport</h2>
         <form onSubmit={handleSubmit}>
-          <div className="mb-4">
-            <Input
-              label="Prix Total"
-              placeholder="prix"
-              required
-              value={prixTotal}
-              onChange={(e) => setPrixTotal(e.target.value)} // Gestion de l'état
-              props={{
-                type: 'text',
-              }}
-            />
+          {/* Input Fields */}
+          <Input
+            label="Pays de départ"
+            placeholder="Pays de départ"
+            value={formData.paysDepart}
+            onChange={(e) => handleInputChange({ target: { name: "paysDepart", value: e.target.value } })}
+            type="text"
+          />
+          <Input
+            label="Adresse de départ"
+            placeholder="Adresse de départ"
+            value={formData.adresseDepart}
+            onChange={(e) => handleInputChange({ target: { name: "adresseDepart", value: e.target.value } })}
+            type="text"
+          />
+          <Input
+            label="Code postal de départ"
+            placeholder="Code postal de départ"
+            value={formData.codePostalDepart}
+            onChange={(e) => handleInputChange({ target: { name: "codePostalDepart", value: e.target.value } })}
+            type="text"
+          />
+          <Input
+            label="Pays d'arrivée"
+            placeholder="Pays d'arrivée"
+            value={formData.paysArrive}
+            onChange={(e) => handleInputChange({ target: { name: "paysArrive", value: e.target.value } })}
+            type="text"
+          />
+          <Input
+            label="Adresse d'arrivée"
+            placeholder="Adresse d'arrivée"
+            value={formData.adresseArrive}
+            onChange={(e) => handleInputChange({ target: { name: "adresseArrive", value: e.target.value } })}
+            type="text"
+          />
+          <Input
+            label="Code postal d'arrivée"
+            placeholder="Code postal d'arrivée"
+            value={formData.codeArrive}
+            onChange={(e) => handleInputChange({ target: { name: "codeArrive", value: e.target.value } })}
+            type="text"
+          />
+          <Input
+            label="Date de départ"
+            placeholder="Date de départ"
+            value={formData.dateDepart}
+            onChange={(e) => handleInputChange({ target: { name: "dateDepart", value: e.target.value } })}
+            type="date"
+          />
+          <Input
+            label="Date d'arrivée"
+            placeholder="Date d'arrivée"
+            value={formData.dateArrive}
+            onChange={(e) => handleInputChange({ target: { name: "dateArrive", value: e.target.value } })}
+            type="date"
+          />
+          <div className="flex flex-col justify-center px-5 py-2.5 mt-2 max-w-full bg-white rounded-lg border border-gray-300 border-solid w-[360px]">
+            <span className="text-xs leading-5 text-gray-400">Gerbable</span>
+            <select
+              name="gerbable"
+              value={formData.gerbable}
+              onChange={handleInputChange}
+              className="flex-grow p-1 h-1 text-sm leading-5 text-stone-900 border-none outline-none"
+            >
+              <option value="Oui">Oui</option>
+              <option value="Non">Non</option>
+            </select>
           </div>
-          <div className="mb-4">
-            <label className="block text-gray-700 text-sm font-bold mb-2" htmlFor="file">
-              Télécharger un fichier
-            </label>
+          <div className="flex items-center mt-2">
+            <label className="mr-2">Frigorifié</label>
             <input
-              type="file"
-              id="file"
-              onChange={(e) => setFile(e.target.files[0])} // Gestion de l'état pour le fichier
-              className="shadow appearance-none border rounded w-full py-2 px-0 text-gray-700 leading-tight focus:outline-none focus:shadow-outline"
+              type="checkbox"
+              name="frigorifie"
+              checked={formData.frigorifie}
+              onChange={handleInputChange}
             />
           </div>
-          <div className="flex items-center justify-between">
+          <div className="flex items-center mt-2">
+            <label className="mr-2">Dangereux</label>
+            <input
+              type="checkbox"
+              name="dangereux"
+              checked={formData.dangereux}
+              onChange={handleInputChange}
+            />
+          </div>
+          <Input
+            label="Pièce jointe"
+            placeholder="Ajouter un fichier"
+            type="file"
+            onChange={(e) => setFile(e.target.files[0])}
+          />
+          <div className="mt-4 flex justify-end">
+            <button
+              type="submit"
+              className="bg-blue-500 text-white px-4 py-2 rounded hover:bg-blue-600 transition"
+            >
+              Envoyer
+            </button>
             <button
               type="button"
               onClick={onClose}
-              className="bg-gray-400 hover:bg-gray-700 text-white font-bold py-2 px-4 rounded focus:outline-none focus:shadow-outline"
+              className="bg-gray-500 text-white px-4 py-2 rounded hover:bg-gray-600 transition ml-2"
             >
               Annuler
-            </button>
-            <button
-              type="submit"
-              className="bg-cyan-800 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded focus:outline-none focus:shadow-outline"
-            >
-              Soumettre
             </button>
           </div>
         </form>

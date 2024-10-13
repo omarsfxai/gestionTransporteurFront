@@ -83,7 +83,7 @@ function DemandeTransport() {
                   onClick={openModalDemande}
                   className="justify-center px-3.5 py-2.5 mt-7 text-base font-semibold text-center text-white bg-cyan-800 rounded max-md:mt-10"
                 >
-                  Consulter les déstails
+                  Demande Transport
                 </button>
                 <ModalDemande isOpen={isModalDemandeOpen} onClose={closeModalDemande} />
               </div>
