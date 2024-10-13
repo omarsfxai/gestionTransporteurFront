@@ -21,16 +21,35 @@ const ModalDemande = ({ isOpen, onClose }) => {
   });
 
   const [file, setFile] = useState(null);
+  const decodeToken = () => {
+    const token = localStorage.getItem('token');
+    if (!token) return null;
 
+    const base64Url = token.split('.')[1];
+    const base64 = base64Url.replace(/-/g, '+').replace(/_/g, '/');
+    const jsonPayload = decodeURIComponent(atob(base64).split('').map(function(c) {
+      return '%' + ('00' + c.charCodeAt(0).toString(16)).slice(-2);
+    }).join(''));
+
+    const decodedToken = JSON.parse(jsonPayload);
+    return decodedToken.id;
+  };
   const handleSubmit = async (e) => {
     e.preventDefault();
 
+    const expediteurId = decodeToken(); 
+    if (!expediteurId) {
+      console.error("User ID not found");
+      return;
+    }
+
     console.log(formData);
-    
-    // Prepare form data for submission
+    const dataToSend = {
+      ...formData,
+      expediteurId, 
+    };
     const formDataToSend = new FormData();
 
-    // Append all fields, even if empty
     Object.keys(formData).forEach(key => {
       formDataToSend.append(key, formData[key]);
     });
@@ -39,12 +58,16 @@ const ModalDemande = ({ isOpen, onClose }) => {
       formDataToSend.append('pieceJointes', file);
     }
 
-    console.log('Submitting Form Data:', formDataToSend); // Log the data being sent
+    formDataToSend.append('expediteurId', expediteurId);
+
 
     try {
       const response = await fetch('http://localhost:3002/demandeTransport/addDemande', {
         method: 'POST',
-        body: formDataToSend,
+        headers: {
+          'Content-Type': 'application/json',
+        },
+        body: JSON.stringify(dataToSend),
       });
 
       if (response.ok) {
@@ -67,7 +90,7 @@ const ModalDemande = ({ isOpen, onClose }) => {
           photo: '',
         });
         setFile(null);
-        onClose(); // Close modal after submission
+        onClose(); 
       } else {
         console.error("Erreur lors de l'envoi des données");
       }
