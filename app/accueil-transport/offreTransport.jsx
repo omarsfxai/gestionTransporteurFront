@@ -41,7 +41,7 @@ function OffreTransport() {
   }, []);
 
   return (
-    <div className="pb-11 mt-10 bg-white rounded-3xl border border-gray-400 border-solid max-md:max-w-full">
+    <div className="pb-11 mt-10 bg-slate-300 rounded-3xl border border-gray-400 border-solid max-md:max-w-full">
       <button 
         onClick={openNewModal} 
         className="mb-5 px-4 py-2 bg-green-500 text-white rounded">
@@ -88,7 +88,7 @@ function OffreTransport() {
                     </div>
                   </div>
                 </div>
-                <div className="flex flex-col ml-5 w-[50%] max-md:ml-0 max-md:w-full bg-white">
+                <div className="flex flex-col ml-5 w-[50%] max-md:ml-0 max-md:w-full bg-slate-200	rounded-lg justify-center">
                   <div className="flex flex-col mt-16 text-base font-semibold leading-7 text-slate-950 max-md:mt-10">
                     <div className="text-cyan-800">Ramassage</div>
                     <div className="mt-6">{new Date(demande.dateDepart).toLocaleDateString()}</div>

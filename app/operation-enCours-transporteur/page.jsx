@@ -22,7 +22,7 @@ const HomePage = () => {
     <>
       <div className="flex flex-col px-20 py-9 bg-white rounded-xl max-md:px-5">
         <NabBar />
-        <div className="flex flex-col md:flex-row gap-5 px-16 py-2.5 mt-10 font-semibold text-center bg-sky-300 rounded-md max-md:px-5 max-md:max-w-full">
+        <div className="flex flex-col md:flex-row gap-5 px-16 py-2.5 mt-10 font-semibold text-center bg-sky-300 rounded-md max-md:px-5 max-md:max-w-full"style={{ display: "none" }}>
           <div className="flex justify-center md:ml-auto text-base font-sans text-cyan-800 rounded bg-white bg-opacity-0">
             Vérifier votre Compte
           </div>

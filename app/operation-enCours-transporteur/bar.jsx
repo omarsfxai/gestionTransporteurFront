@@ -4,7 +4,7 @@ import Image from "next/image";
 
 function navBar() {
   return (
-    <div className="flex flex-col px-5 py-7 mt-8 bg-white rounded-3xl border border-solid shadow-lg border-neutral-200 max-md:max-w-full">
+    <div className="flex flex-col px-5 py-7 mt-8 bg-white rounded-3xl border border-solid shadow-lg border-neutral-200 max-md:max-w-full" style={{ display: "none" }}>
       <div className="flex gap-5 w-full text-sm leading-6 max-md:flex-wrap max-md:max-w-full">
         <div className="flex shrink gap-3 self-start p-4 rounded-xl basis-auto bg-white grow-0 text-slate-950 w-[285px]">
           <img

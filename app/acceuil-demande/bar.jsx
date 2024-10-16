@@ -41,8 +41,7 @@ function NavBar() {
   };
 
   return (
-    <div className="flex flex-col px-5 py-7 mt-8 bg-white rounded-3xl border border-solid shadow-lg border-neutral-200 max-md:max-w-full">
-      <div className="flex gap-5 w-full text-sm leading-6 max-md:flex-wrap max-md:max-w-full">
+<div className="flex flex-col px-5 py-7 mt-8 bg-white rounded-3xl border border-solid shadow-lg border-neutral-200 max-md:max-w-full" style={{ display: "none" }}>      <div className="flex gap-5 w-full text-sm leading-6 max-md:flex-wrap max-md:max-w-full">
         <Search onClick={handleSearchClick} />
         <div className="flex flex-auto gap-1 whitespace-nowrap max-md:flex-wrap max-md:max-w-full">
           <div className="flex flex-auto gap-5 self-start py-2 rounded-xl bg-white">
