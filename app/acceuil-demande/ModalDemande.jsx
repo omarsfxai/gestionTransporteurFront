@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import Input from '../UI/Input/input';
 
 const ModalDemande = ({ isOpen, onClose }) => {
@@ -18,9 +18,12 @@ const ModalDemande = ({ isOpen, onClose }) => {
     dangereux: false,
     pieceJointes: '',
     photo: '',
+    cargoId: '',
   });
 
   const [file, setFile] = useState(null);
+  const [cargoList, setCargoList] = useState([]);
+
   const decodeToken = () => {
     const token = localStorage.getItem('token');
     if (!token) return null;
@@ -34,45 +37,47 @@ const ModalDemande = ({ isOpen, onClose }) => {
     const decodedToken = JSON.parse(jsonPayload);
     return decodedToken.id;
   };
+
   const handleSubmit = async (e) => {
     e.preventDefault();
-
+  
     const expediteurId = decodeToken(); 
     if (!expediteurId) {
       console.error("User ID not found");
       return;
     }
-
-    console.log(formData);
+  
+    // Prepare the data to send
     const dataToSend = {
-      ...formData,
       expediteurId, 
+      paysDepart: formData.paysDepart,
+      adresseDepart: formData.adresseDepart,
+      codePostalDepart: formData.codePostalDepart,
+      paysArrive: formData.paysArrive,
+      adresseArrive: formData.adresseArrive,
+      codeArrive: formData.codeArrive,
+      dateDepart: formData.dateDepart,
+      dateArrive: formData.dateArrive,
+      photo: formData.photo, // Assuming you have a method to set this if needed
+      gerbable: formData.gerbable === 'Oui', // Convert to boolean
+      frigorifie: formData.frigorifie,
+      dangereux: formData.dangereux,
+      pieceJointes: formData.pieceJointes,
+      cargoIds: [formData.cargoId], // Ensure this is an array
     };
-    const formDataToSend = new FormData();
-
-    Object.keys(formData).forEach(key => {
-      formDataToSend.append(key, formData[key]);
-    });
-
-    if (file) {
-      formDataToSend.append('pieceJointes', file);
-    }
-
-    formDataToSend.append('expediteurId', expediteurId);
-
-
+  
     try {
       const response = await fetch('http://localhost:3002/demandeTransport/addDemande', {
         method: 'POST',
         headers: {
-          'Content-Type': 'application/json',
+          'Content-Type': 'application/json', // Set to application/json
         },
-        body: JSON.stringify(dataToSend),
+        body: JSON.stringify(dataToSend), // Send JSON data
       });
-
+  
       if (response.ok) {
         console.log("Form Data Submitted Successfully");
-
+  
         // Reset form after successful submission
         setFormData({
           paysDepart: '',
@@ -88,6 +93,7 @@ const ModalDemande = ({ isOpen, onClose }) => {
           dangereux: false,
           pieceJointes: '',
           photo: '',
+          cargoId: '',
         });
         setFile(null);
         onClose(); 
@@ -98,6 +104,8 @@ const ModalDemande = ({ isOpen, onClose }) => {
       console.error('Erreur lors de la soumission', error);
     }
   };
+  
+  
 
   const handleInputChange = (e) => {
     const { name, value, type, checked } = e.target;
@@ -107,9 +115,27 @@ const ModalDemande = ({ isOpen, onClose }) => {
     });
   };
 
+  useEffect(() => {
+    const fetchCargoData = async () => {
+      try {
+        const response = await fetch('http://localhost:3002/cargo/allCargo');
+        if (response.ok) {
+          const data = await response.json();
+          setCargoList(data);
+        } else {
+          console.error("Failed to fetch cargo data");
+        }
+      } catch (error) {
+        console.error('Error fetching cargo data', error);
+      }
+    };
+
+    fetchCargoData();
+  }, []);
+
   return (
     <div className="fixed inset-0 bg-gray-600 bg-opacity-50 flex justify-center items-center">
-      <div className="bg-white p-6 rounded-lg shadow-lg w-1/3 max-md:w-[400px]">
+      <div className="bg-white p-6 rounded-lg shadow-lg w-1/3 max-md:w-[400px] max-h-[90vh] overflow-y-auto"> {/* Updated styles */}
         <h2 className="text-2xl font-bold mb-4 font-sans max-md:text-xl">Demande de Transport</h2>
         <form onSubmit={handleSubmit}>
           {/* Input Fields */}
@@ -205,18 +231,28 @@ const ModalDemande = ({ isOpen, onClose }) => {
             type="file"
             onChange={(e) => setFile(e.target.files[0])}
           />
-          <div className="mt-4 flex justify-end">
-            <button
-              type="submit"
-              className="bg-blue-500 text-white px-4 py-2 rounded hover:bg-blue-600 transition"
+          {/* Cargo Select */}
+          <div className="flex flex-col mt-4">
+            <label htmlFor="cargoId" className="mb-1">Choisir une cargaison</label>
+            <select
+              name="cargoId"
+              value={formData.cargoId}
+              onChange={handleInputChange}
+              className="p-2 border border-gray-300 rounded"
             >
-              Envoyer
+              <option value="">Sélectionnez une cargaison</option>
+              {cargoList.map(cargo => (
+                <option key={cargo.id} value={cargo.id}>
+                  {cargo.libelle}
+                </option>
+              ))}
+            </select>
+          </div>
+          <div className="flex justify-center mt-4">
+            <button type="submit" className="bg-blue-500 text-white rounded px-4 py-2">
+              Soumettre
             </button>
-            <button
-              type="button"
-              onClick={onClose}
-              className="bg-gray-500 text-white px-4 py-2 rounded hover:bg-gray-600 transition ml-2"
-            >
+            <button type="button" onClick={onClose} className="bg-gray-500 text-white rounded px-4 py-2 ml-2">
               Annuler
             </button>
           </div>

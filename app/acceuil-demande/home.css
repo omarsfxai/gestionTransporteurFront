@@ -115,3 +115,105 @@
   margin: 0 auto;
   border-radius: 20px;
 }
+
+.modal-overlay {
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background-color: rgba(0, 0, 0, 0.5); /* Dark background */
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  z-index: 1000; /* Ensure the modal is above other elements */
+}
+label {
+  display: block; /* Make labels block elements */
+  margin-bottom: 5px; /* Space below the label */
+  font-weight: bold; /* Bold label text */
+}
+
+.modal {
+  background: white;
+  padding: 20px; /* Padding inside the modal */
+  border-radius: 8px;
+  box-shadow: 0 4px 20px rgba(0, 0, 0, 0.2); /* Softer shadow */
+  width: 60%; /* Increased width for a more spacious design */
+  max-width: 90%; /* Responsive design */
+  max-height: 80vh; /* Fixed maximum height of the modal */
+  overflow-y: auto; /* Enable vertical scrolling */
+  transition: all 0.3s ease-in-out; /* Smooth transition */
+  position: relative;
+}
+
+h2, h3 {
+  margin: 0 0 20px; /* Spacing below headings */
+  color: #333; /* Darker color for better readability */
+  font-family: 'Arial', sans-serif; /* Modern font style */
+}
+
+button {
+  background-color: #007BFF; /* Bootstrap primary color */
+  color: white;
+  border: none;
+  border-radius: 5px; /* Rounded corners */
+  padding: 10px 15px; /* Padding for buttons */
+  cursor: pointer;
+  transition: background-color 0.3s; /* Smooth color change */
+  margin-right: 10px; /* Space between buttons */
+}
+
+button:hover {
+  background-color: #0056b3; /* Darker shade on hover */
+}
+
+input[type="text"],
+input[type="number"] {
+  width: calc(100% - 20px); /* Full width minus padding */
+  padding: 10px; /* Padding inside input */
+  margin-bottom: 15px; /* Spacing between inputs */
+  border: 1px solid #ccc; /* Light border */
+  border-radius: 5px; /* Rounded corners */
+  font-size: 14px; /* Font size for inputs */
+  font-family: 'Arial', sans-serif; /* Modern font style */
+}
+
+table {
+  width: 100%;
+  border-collapse: collapse;
+  margin-top: 20px;
+}
+
+th, td {
+  border: 1px solid #ccc; /* Light border for table */
+  padding: 10px;
+  text-align: left;
+}
+
+th {
+  background-color: #f4f4f4; /* Light gray background for header */
+  color: #333; /* Darker text color */
+}
+
+td {
+  color: #555; /* Slightly lighter text color */
+}
+
+tr:hover {
+  background-color: #f9f9f9; /* Highlight row on hover */
+}
+.close-button {
+  position: absolute;
+  top: 10px; /* Adjust to desired spacing */
+  right: 10px; /* Adjust to desired spacing */
+  background: none; /* Remove default button styling */
+  border: none; /* Remove border */
+  font-size: 20px; /* Adjust size */
+  cursor: pointer; /* Change cursor on hover */
+  color: red;
+}
+
+.close-button:hover {
+  color: red; /* Change color on hover for better visibility */
+}
